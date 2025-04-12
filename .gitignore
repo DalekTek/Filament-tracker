@@ -943,3 +943,13 @@ src/__pycache__/
 *.env
 my_test/
 src/output/
+init_db.bat
+init_db.sh
+filament.db
+*filament.db
+__pycache__/*
+.idea/*
+__pycache__
+.idea
+__pycache__/
+.idea/
