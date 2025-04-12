@@ -21,7 +21,7 @@
 
 1. Клонируйте репозиторий:
 ```bash
-git clone https://github.com/yourusername/filament_tracker_bot.git
+git clone [https://github.com/yourusername/filament_tracker_bot.git](https://github.com/DalekTek/Filament-tracker.git)
 cd filament_tracker_bot
 ```
 
