@@ -1,15 +1,26 @@
 import asyncio
 import logging
 from datetime import datetime
+import os
+import sys
+
+# Ensure the local `src` directory is in sys.path so modules inside it
+# (for example `models`) can be imported as top-level modules when running
+# this script from the project root.
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.join(ROOT_DIR, "src")
+if SRC_DIR not in sys.path:
+    # add to front so it takes precedence over other paths
+    sys.path.insert(0, SRC_DIR)
+
 from aiogram import Bot, Dispatcher
-from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import Message
-from config import load_config
-from database import Database
-from handlers import FilamentHandler
-from security import SecurityManager
-from queue_manager import QueueManager, Message as QueueMessage
+from src.config import load_config
+from src.database import Database
+from src.handlers import FilamentHandler
+from src.security import SecurityManager
+from src.queue_manager import QueueManager, Message as QueueMessage
 from typing import Any
 
 
