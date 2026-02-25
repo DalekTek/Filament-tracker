@@ -92,6 +92,23 @@ filament_tracker_bot/
 └── README.md          # Документация
 ```
 
+## Подробности реализации
+
+### Слушатели команд
+
+Слушатель сообщений реализован в нескольких местах:
+ - **Telegram-приёмник**: в `bot.py` — метод `SecureFilamentBot.start()` запускает цикл приёма через 
+   `dp.start_polling(...)`. Это главный "listener" для входящих апдейтов. 
+ - **Middleware**: в `bot.py` — `MessageMiddleware` (подключается через `self.dp.message.middleware(...)`) перехватывает 
+   и передаёт сообщения в `SecureFilamentBot.process_message`. 
+ - **Обработчики команд**: в `handlers.py` — класс `FilamentHandler` и его метод `register_handlers` регистрируют 
+   конкретные хэндлеры для сообщений. 
+ - **Очередь сообщений**: фоновая задача в `bot.py` — `process_queue` (создаётся через `asyncio.create_task`) 
+   читает из очереди через `queue_manager.py` и служит слушателем для сообщений в Redis.
+
+Входящие Telegram‑сообщения ловит `polling` в `bot.py` (с промежуточной обработкой в `MessageMiddleware`), 
+а обработку фоновых/очередных сообщений делает `process_queue` через `queue_manager.py`.
+
 ## Разработка
 
 Проект использует:
